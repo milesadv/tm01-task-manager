@@ -1,27 +1,5 @@
-# Dependencies
-node_modules/
-.pnp
-.pnp.js
-
-# Testing
-coverage/
-*.lcov
-.nyc_output
-
-# Production builds
-dist/
-build/
-*.local
-
-# Environment variables (CRITICAL - contains API keys)
-.env
-.env*.local
-.env.development.local
-.env.test.local
-.env.production.local
-
 # Logs
-logs/
+logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -29,35 +7,25 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+node_modules
+dist
+dist-ssr
+*.local
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-!.vscode/settings.json
-.idea/
+.idea
+.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.DS_Store
 
-# Cursor IDE specific
-.cursor/
-*.cursor
-
-# OS files
-Thumbs.db
-.DS_Store
-
-# Temporary files
-*.tmp
-*.temp
-.cache/
-
-# Supabase local development
-supabase/.branches
-supabase/.temp
-
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
+# Environment variables (CRITICAL - contains API keys)
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
