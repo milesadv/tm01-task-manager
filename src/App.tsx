@@ -1,19 +1,22 @@
-import Test from '@/components/Test'
+import { Button } from '@/components/ui/button'
 
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold text-gray-900 mb-2">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-8">
+      <div className="space-y-4 text-center">
+        <h1 className="text-4xl font-bold text-gray-900">
           TM01 Task Manager
         </h1>
-        <p className="text-gray-600 text-lg mb-8">
-          React 18 + TypeScript + Vite + Supabase
-        </p>
-        <Test />
-        <p className="text-green-600 font-medium mt-4">
-          ✓ Setup Complete
-        </p>
+        <p className="text-gray-600">shadcn/ui + Tailwind CSS</p>
+        
+        <div className="flex gap-4 justify-center">
+          <Button>Default Button</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="destructive">Destructive</Button>
+          <Button variant="outline">Outline</Button>
+        </div>
+        
+        <p className="text-green-600 font-semibold">✓ Setup Complete</p>
       </div>
     </div>
   )
