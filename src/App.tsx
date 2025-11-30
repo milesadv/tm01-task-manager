@@ -1,25 +1,47 @@
-import { Button } from '@/components/ui/button'
+
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { supabase } from './services/supabase';
+import { useAuthStore } from './store/authstore';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
 
 function App() {
+  const { setAuth } = useAuthStore();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setAuth(session?.user ?? null, session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setAuth(session?.user ?? null, session);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, [setAuth]);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-8">
-      <div className="space-y-4 text-center">
-        <h1 className="text-4xl font-bold text-gray-900">
-          TM01 Task Manager
-        </h1>
-        <p className="text-gray-600">shadcn/ui + Tailwind CSS</p>
-        
-        <div className="flex gap-4 justify-center">
-          <Button>Default Button</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="destructive">Destructive</Button>
-          <Button variant="outline">Outline</Button>
-        </div>
-        
-        <p className="text-green-600 font-semibold">✓ Setup Complete</p>
-      </div>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
